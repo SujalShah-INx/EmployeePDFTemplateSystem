@@ -1,0 +1,109 @@
+.document-editor {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.document-editor .quill {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.document-editor .ql-toolbar {
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f8f9fa;
+  padding: 12px;
+}
+
+.document-editor .ql-container {
+  flex: 1;
+  border: none;
+  font-size: 11pt;
+  font-family: Calibri, Arial, sans-serif;
+  overflow-y: auto;
+}
+
+.document-editor .ql-editor {
+  padding: 40px;
+  min-height: 100%;
+  line-height: 1.6;
+}
+
+.document-editor .ql-editor.ql-blank::before {
+  color: #999;
+  font-style: italic;
+}
+
+/* Preserve formatting from imported HTML */
+.document-editor .ql-editor p {
+  margin-bottom: 0.5em;
+}
+
+.document-editor .ql-editor table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.document-editor .ql-editor td,
+.document-editor .ql-editor th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.document-editor .ql-editor img {
+  max-width: 100%;
+  height: auto;
+}
+
+.document-editor .ql-editor strong,
+.document-editor .ql-editor b {
+  font-weight: bold;
+}
+
+.document-editor .ql-editor em,
+.document-editor .ql-editor i {
+  font-style: italic;
+}
+
+.document-editor .ql-editor u {
+  text-decoration: underline;
+}
+
+.document-editor .ql-editor input[type="text"] {
+  border: none;
+  border-bottom: 1px solid #333;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 2px 4px;
+}
+
+.document-editor .ql-editor input[type="text"]:focus {
+  outline: none;
+  border-bottom-color: #1976d2;
+  background: #f0f8ff;
+}
+
+/* Custom scrollbar for editor */
+.document-editor .ql-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.document-editor .ql-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.document-editor .ql-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.document-editor .ql-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

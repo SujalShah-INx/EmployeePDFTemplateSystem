@@ -1,0 +1,100 @@
+[
+  {
+    "id": 1,
+    "name": "Arbeidsovereenkomst Dienstencheques - Onbepaalde duur - Deeltijds vast uurrooster -Minimum 4 uren",
+    "fileName": "Arbeidsovereenkomst Dienstencheques - Onbepaalde duur - Deeltijds vast uurrooster -Minimum 4 uren.html",
+    "isPlanning": true,
+    "category": "Contract"
+  },
+  {
+    "id": 2,
+    "name": "Einde arbeidsovereenkomst in wederzijds akkoord",
+    "fileName": "Einde arbeidsovereenkomst in wederzijds akkoord.html",
+    "isPlanning": false,
+    "category": "Termination"
+  },
+  {
+    "id": 3,
+    "name": "Einde arbeidsovereenkomst met opzeggingstermijn - AANGETEKEND",
+    "fileName": "Einde arbeidsovereenkomst met opzeggingstermijn - AANGETEKEND.html",
+    "isPlanning": false,
+    "category": "Termination"
+  },
+  {
+    "id": 4,
+    "name": "Einde arbeidsovereenkomst met opzeggingvergoeding-Arbeider - AANGETEKEND",
+    "fileName": "Einde arbeidsovereenkomst met opzeggingvergoeding-Arbeider - AANGETEKEND.html",
+    "isPlanning": false,
+    "category": "Termination"
+  },
+  {
+    "id": 5,
+    "name": "Einde arbeidsovereenkomst tijdens proefperiode-Arbeider - AANGETEKEND",
+    "fileName": "Einde arbeidsovereenkomst tijdens proefperiode-Arbeider - AANGETEKEND.html",
+    "isPlanning": false,
+    "category": "Termination"
+  },
+  {
+    "id": 6,
+    "name": "Bijlage bij arbeidsovereenkomst - Tijdelijke wijziging uurrooster en arbeidsduur",
+    "fileName": "Bijlage bij arbeidsovereenkomst - Tijdelijke wijziging uurrooster en arbeidsduur.html",
+    "isPlanning": true,
+    "category": "Addendum"
+  },
+  {
+    "id": 7,
+    "name": "Bijlage bij arbeidsovereenkomst - wijziging uurrooster met behoud van de arbeidsduur",
+    "fileName": "Bijlage bij arbeidsovereenkomst - wijziging uurrooster met behoud van de arbeidsduur.html",
+    "isPlanning": true,
+    "category": "Addendum"
+  },
+  {
+    "id": 8,
+    "name": "Bijlage bij arbeidsovereenkomst - Wens geen vervangingen te doen.",
+    "fileName": "Bijlage bij arbeidsovereenkomst - Wens geen vervangingen te doen..html",
+    "isPlanning": false,
+    "category": "Addendum"
+  },
+  {
+    "id": 9,
+    "name": "Eerste aanmaning wegens niet verklaren van",
+    "fileName": "Eerste aanmaning wegens niet verklaren van .html",
+    "isPlanning": false,
+    "category": "Notice"
+  },
+  {
+    "id": 10,
+    "name": "Ontslag wegens niet verklaren afwezigheid",
+    "fileName": "Ontslag wegens niet verklaren afwezigheid.html",
+    "isPlanning": false,
+    "category": "Notice"
+  },
+  {
+    "id": 11,
+    "name": "Ontvangsbewijs Arbeidsreglement",
+    "fileName": "Ontvangsbewijs Arbeidsreglement.html",
+    "isPlanning": false,
+    "category": "Receipt"
+  },
+  {
+    "id": 12,
+    "name": "Ontvangsbewijs werkkledij",
+    "fileName": "Ontvangsbewijs werkkledij.html",
+    "isPlanning": false,
+    "category": "Receipt"
+  },
+  {
+    "id": 13,
+    "name": "Tweede aanmaning wegens niet verklaren van",
+    "fileName": "Tweede aanmaning wegens niet verklaren van .html",
+    "isPlanning": false,
+    "category": "Notice"
+  },
+  {
+    "id": 14,
+    "name": "Uw zakelijke nieuwsbrief",
+    "fileName": "Uw zakelijke nieuwsbrief.html",
+    "isPlanning": false,
+    "category": "Newsletter"
+  }
+]

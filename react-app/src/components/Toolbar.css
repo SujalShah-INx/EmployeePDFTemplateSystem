@@ -1,0 +1,88 @@
+.toolbar {
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.toolbar-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toolbar-title h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+  font-weight: 600;
+}
+
+.toolbar-status {
+  display: flex;
+  gap: 24px;
+  font-size: 13px;
+  color: #666;
+}
+
+.status-item strong {
+  color: #333;
+  margin-right: 6px;
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toolbar-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.toolbar-btn:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.toolbar-btn:not(:disabled):active {
+  transform: translateY(0);
+}
+
+.btn-print {
+  background: #757575;
+  color: white;
+}
+
+.btn-print:not(:disabled):hover {
+  background: #616161;
+}
+
+.btn-export {
+  background: #4caf50;
+  color: white;
+}
+
+.btn-export:not(:disabled):hover {
+  background: #45a049;
+}
+
+.toolbar-btn svg {
+  flex-shrink: 0;
+}

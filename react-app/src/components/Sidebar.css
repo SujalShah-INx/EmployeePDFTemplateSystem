@@ -1,0 +1,36 @@
+.sidebar {
+  width: 320px;
+  background: white;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar > * {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.sidebar > *:not(:last-child) {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Custom scrollbar */
+.sidebar > *::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar > *::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.sidebar > *::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.sidebar > *::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
