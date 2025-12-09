@@ -18,11 +18,9 @@ function DocumentEditor({ content, onChange }) {
       TextStyle,
       Color,
     ],
-    content: content || '',
+    content: '', // Start with empty content
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
-      console.log('Editor updated - HTML length:', html.length);
-      console.log('Editor updated - HTML preview:', html.substring(0, 200));
       if (onChange) {
         onChange(html);
       }
@@ -31,8 +29,25 @@ function DocumentEditor({ content, onChange }) {
 
   // Update editor content when content prop changes
   useEffect(() => {
-    if (editor && content && editor.getHTML() !== content) {
-      editor.commands.setContent(content, false);
+    if (editor && content) {
+      // Check if content is valid HTML/text
+      const isValidContent = typeof content === 'string' && 
+                            content.length > 0 && 
+                            !content.includes('\ufffd') && // Check for replacement character
+                            !/[\x00-\x08\x0B\x0C\x0E-\x1F]/.test(content); // Check for control characters
+      
+      if (isValidContent && editor.getHTML() !== content) {
+        try {
+          editor.commands.setContent(content, false);
+        } catch (error) {
+          console.error('Error setting editor content:', error);
+          // If content is invalid, set a clean error message
+          editor.commands.setContent('<p>Error: Unable to display this content. The template may be corrupted or in an unsupported format.</p>');
+        }
+      } else if (!isValidContent && content.length > 0) {
+        console.warn('Invalid content detected, displaying error message');
+        editor.commands.setContent('<p><strong>Error:</strong> The content appears to be corrupted or in binary format. Please upload an HTML file or ensure the template is properly formatted.</p>');
+      }
     }
   }, [content, editor]);
 

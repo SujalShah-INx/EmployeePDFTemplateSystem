@@ -67,7 +67,19 @@ export async function loadTemplate(fileName) {
       throw new Error(`Failed to load template: ${fileName}`);
     }
     
-    return await response.text();
+    const text = await response.text();
+    
+    // Validate that we got valid text/HTML content
+    if (!text || typeof text !== 'string') {
+      throw new Error('Invalid template content');
+    }
+    
+    // Check if content is binary/corrupted
+    if (text.includes('\ufffd') || /[\x00-\x08\x0B\x0C\x0E-\x1F]/.test(text)) {
+      throw new Error('Template appears to be corrupted or in binary format. Please ensure the file is saved as UTF-8 HTML.');
+    }
+    
+    return text;
   } catch (error) {
     console.error('Error loading template:', error);
     throw error;

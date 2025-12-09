@@ -24,8 +24,10 @@
     "@tiptap/starter-kit": "^2.27.1",
     "dompurify": "^3.0.6",
     "html2pdf.js": "^0.10.1",
+    "mammoth": "^1.11.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "spire.doc": "^13.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

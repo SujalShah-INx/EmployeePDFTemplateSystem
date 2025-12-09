@@ -12,12 +12,14 @@ import {
   ScrollArea,
   Loader,
   Center,
-  Alert
+  Alert,
+  Modal
 } from '@mantine/core';
-import { IconDownload, IconPrinter, IconAlertCircle } from '@tabler/icons-react';
+import { IconDownload, IconPrinter, IconAlertCircle, IconUpload } from '@tabler/icons-react';
 import '@mantine/core/styles.css';
 import '@mantine/tiptap/styles.css';
 import DocumentEditor from './components/MantineDocumentEditor';
+import DocumentUpload from './components/DocumentUpload';
 import { replacePlaceholders, loadTemplate } from './utils/templateProcessor';
 import { exportToPDF, printDocument } from './utils/pdfExport';
 import employeesData from './data/employees.json';
@@ -25,12 +27,26 @@ import templatesData from './data/templates.json';
 
 function App() {
   const [employees] = useState(employeesData);
-  const [templates] = useState(templatesData);
+  const [templates, setTemplates] = useState(templatesData);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [documentContent, setDocumentContent] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [uploadedTemplates, setUploadedTemplates] = useState({});
+
+  // Load uploaded templates from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem('uploadedTemplates');
+    if (saved) {
+      try {
+        setUploadedTemplates(JSON.parse(saved));
+      } catch (err) {
+        console.error('Error loading uploaded templates:', err);
+      }
+    }
+  }, []);
 
   // Load and populate template when employee or template changes
   useEffect(() => {
@@ -44,7 +60,26 @@ function App() {
       setError(null);
 
       try {
-        const templateHtml = await loadTemplate(selectedTemplate.fileName);
+        let templateHtml;
+        
+        // Check if this is an uploaded template
+        if (selectedTemplate.isUploaded && uploadedTemplates[selectedTemplate.name]) {
+          templateHtml = uploadedTemplates[selectedTemplate.name].htmlContent;
+          console.log('Using uploaded template:', selectedTemplate.name);
+        } else {
+          templateHtml = await loadTemplate(selectedTemplate.fileName);
+        }
+        
+        // Validate that templateHtml is actually HTML/text
+        if (!templateHtml || typeof templateHtml !== 'string') {
+          throw new Error('Invalid template format');
+        }
+        
+        // Check for binary/corrupted content
+        if (templateHtml.includes('\ufffd') || /[\x00-\x08\x0B\x0C\x0E-\x1F]/.test(templateHtml)) {
+          throw new Error('Template appears to be corrupted or in binary format');
+        }
+        
         const populatedHtml = replacePlaceholders(templateHtml, selectedEmployee);
         
         console.log('Template loaded successfully');
@@ -54,8 +89,8 @@ function App() {
         
         setDocumentContent(populatedHtml);
       } catch (err) {
-        console.warn('Template file not found, using sample template:', err);
-        setError('Using sample template. To use actual templates, copy HTML files to public/templates/');
+        console.warn('Template loading error:', err);
+        setError(err.message || 'Template file not found, using sample template.');
         
         const sampleTemplate = createSampleTemplate(selectedEmployee, selectedTemplate);
         console.log('Sample template created, length:', sampleTemplate.length);
@@ -66,7 +101,7 @@ function App() {
     }
 
     loadAndPopulateTemplate();
-  }, [selectedEmployee, selectedTemplate]);
+  }, [selectedEmployee, selectedTemplate, uploadedTemplates]);
 
   const handleExportPDF = async () => {
     if (!documentContent || !selectedEmployee || !selectedTemplate) {
@@ -74,10 +109,7 @@ function App() {
       return;
     }
 
-    // Strip Tiptap's empty paragraph wrapper if content is just wrapped in <p></p>
-    let contentToExport = documentContent;
-    
-    // Check if content is essentially empty (just wrapper tags)
+    // Check if content is essentially empty
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = documentContent;
     const textContent = tempDiv.textContent || tempDiv.innerText || '';
@@ -97,7 +129,7 @@ function App() {
     
     setIsLoading(true);
     try {
-      const result = await exportToPDF(contentToExport, filename);
+      const result = await exportToPDF(documentContent, filename);
       if (result.success) {
         console.log('PDF exported successfully');
       } else {
@@ -118,6 +150,32 @@ function App() {
       return;
     }
     printDocument(documentContent);
+  };
+
+  const handleUploadSuccess = (uploadedTemplate) => {
+    console.log('Template uploaded:', uploadedTemplate);
+    
+    // Add to uploaded templates state
+    setUploadedTemplates(prev => ({
+      ...prev,
+      [uploadedTemplate.name]: uploadedTemplate
+    }));
+    
+    // Add to templates list
+    const newTemplate = {
+      id: templates.length + 1,
+      name: uploadedTemplate.name,
+      fileName: uploadedTemplate.fileName,
+      isPlanning: false,
+      category: 'Uploaded',
+      isUploaded: true
+    };
+    
+    setTemplates(prev => [...prev, newTemplate]);
+    setUploadModalOpen(false);
+    
+    // Auto-select the uploaded template
+    setSelectedTemplate(newTemplate);
   };
 
   // Group templates by category
@@ -151,6 +209,13 @@ function App() {
                   {selectedTemplate.name.substring(0, 30)}...
                 </Badge>
               )}
+              <Button 
+                leftSection={<IconUpload size={18} />}
+                variant="outline"
+                onClick={() => setUploadModalOpen(true)}
+              >
+                Upload Template
+              </Button>
               <Button 
                 leftSection={<IconPrinter size={18} />}
                 variant="light"
@@ -267,6 +332,15 @@ function App() {
           )}
         </AppShell.Main>
       </AppShell>
+
+      <Modal
+        opened={uploadModalOpen}
+        onClose={() => setUploadModalOpen(false)}
+        title="Upload Document Template"
+        size="lg"
+      >
+        <DocumentUpload onUploadSuccess={handleUploadSuccess} />
+      </Modal>
     </MantineProvider>
   );
 }
