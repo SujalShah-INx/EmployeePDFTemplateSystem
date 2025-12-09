@@ -236,7 +236,7 @@ function App() {
         </AppShell.Header>
 
         <AppShell.Navbar p="md">
-          <ScrollArea h="calc(50vh - 100px)">
+          <ScrollArea h="calc(50vh - 100px)" >
             <Title order={4} mb="md">Employees</Title>
             <Stack gap="xs">
               {employees.map(employee => (
@@ -258,7 +258,7 @@ function App() {
             </Stack>
           </ScrollArea>
 
-          <ScrollArea h="calc(50vh - 100px)" mt="md">
+          <ScrollArea h="calc(57vh - 100px)" mt="md">
             <Title order={4} mb="md">Templates</Title>
             <Stack gap="md">
               {Object.entries(groupedTemplates).map(([category, categoryTemplates]) => (
