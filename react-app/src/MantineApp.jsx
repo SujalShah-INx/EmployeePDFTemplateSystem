@@ -210,13 +210,6 @@ function App() {
                 </Badge>
               )}
               <Button 
-                leftSection={<IconUpload size={18} />}
-                variant="outline"
-                onClick={() => setUploadModalOpen(true)}
-              >
-                Upload Template
-              </Button>
-              <Button 
                 leftSection={<IconPrinter size={18} />}
                 variant="light"
                 onClick={handlePrint}
